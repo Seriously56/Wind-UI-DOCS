@@ -1,0 +1,90 @@
+---
+title: Button
+description: Creating Button and Editing it
+icon: SquareMousePointer
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+## Creating Button 
+
+```luau tab="Default"
+local Button = Tab:Button({
+    Title = "Button",
+    Desc = "Test Button",
+    Locked = false,
+    Callback = function()
+        -- ...
+    end
+})
+```
+
+```luau tab="Advanced"
+local Button = Tab:Button({
+    Title = "Advanced Button",
+    Color = Color3.fromHex("#a2ff30"), -- paint the button
+    Justify = "Center", -- align items in the center (Center or Between or Left or Right)
+    IconAlign = "Left", -- Left or Right of the text
+    Icon = "", -- removing icon
+    Callback = function()
+        -- ...
+    end
+})
+```
+
+### Set Title
+    ```luau
+    Button:SetTitle("Title Example")
+    ```
+
+### Set Description
+    ```luau
+    Button:SetDesc("Description Example")
+    ```
+
+### Lock Element
+    ```luau
+    Button:Lock()
+    ```
+
+### Unlock Element
+    ```luau
+    Button:Unlock()
+    ```
+
+### Destroy Element
+    ```luau
+    Button:Destroy()
+    ```
+
+<hr/>
+
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+
+<Accordion type="single"  collapsible>
+    <AccordionItem value="item-1">
+        <AccordionTrigger>API</AccordionTrigger>
+        <AccordionContent>
+            ## Button Options
+            
+            <TypeTable
+              type={{
+                Title:         { type: 'string',   required: true,  description: 'Title of the Button.',       default: "Button" },
+                Desc:          { type: 'string',   required: false, description: 'Description of the Button.', default: "nil" },
+                Color:         { type: 'Color3',   required: false, description: 'Button Color',               default: "nil" },
+                Justify:       { type: 'string',   required: false, description: 'Items horizontal align',     default: "Between" },
+                IconAlign:     { type: 'string',   required: false, description: 'Icon align',                 default: "Right" },
+                Locked:        { type: 'boolean',  required: false, description: 'Locks the Element',          default: "false" },
+                Callback:      { type: 'function', required: false, description: 'Callback of the Button',     default: "nil" },
+              }}
+            />
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

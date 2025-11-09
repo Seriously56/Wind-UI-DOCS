@@ -1,0 +1,179 @@
+---
+title: Dropdown
+description: Creating Dropdown and Editing it
+icon: ChevronsUpDown
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+## Creating Dropdown 
+
+### Dropdown
+
+```luau tab="Multi Dropdown"
+local Dropdown = Tab:Dropdown({
+    Title = "Dropdown (Multi)",
+    Desc = "Dropdown Description",
+    Values = { "Category A", "Category B", "Category C" },
+    Value = { "Category A" },
+    Multi = true,
+    AllowNone = true,
+    Callback = function(option) 
+        -- option is a table: { "Category A", "Category B" }
+        print("Categories selected: " .. game:GetService("HttpService"):JSONEncode(option)) 
+    end
+})
+```
+
+```luau tab="No Multi Dropdown"
+local Dropdown = Tab:Dropdown({
+    Title = "Dropdown",
+    Desc = "Dropdown Description",
+    Values = { "Category A", "Category B", "Category C" },
+    Value = "Category A",
+    Callback = function(option) 
+        print("Category selected: " .. option) 
+    end
+})
+```
+
+```luau tab="Advanced Dropdown"
+local Dropdown = Tab:Dropdown({
+    Title = "Advanced Dropdown",
+    Desc = "Dropdown Description",
+    Values = {
+        {
+            Title = "Category A",
+            Icon = "bird"
+        },
+        {
+            Title = "Category B",
+            Icon = "house"
+        },
+        {
+            Title = "Category C",
+            Icon = "droplet"
+        },
+    },
+    Value = "Category A",
+    Callback = function(option) 
+        print("Category selected: " .. option.Title .. " with icon " .. option.Icon) 
+    end
+})
+```
+
+```luau tab="Advanced Dropdown 2"
+local Dropdown = Tab:Dropdown({
+    Title = "Advanced Dropdown 2 (example)",
+    Values = {
+        {
+            Title = "New file",
+            Desc = "Create a new file",
+            Icon = "file-plus",
+            Callback = function() 
+                print("Clicked 'New File'")
+            end
+        },
+        {
+            Title = "Copy link",
+            Desc = "Copy the file link",
+            Icon = "copy",
+            Callback = function() 
+                print("Clicked 'Copy link'")
+            end
+        },
+        {
+            Title = "Edit file",
+            Desc = "Allows you to edit the file",
+            Icon = "file-pen",
+            Callback = function() 
+                print("Clicked 'Edit file'")
+            end
+        },
+        { Type = "Divider", },
+        {
+            Title = "Delete file",
+            Desc = "Permanently delete the file",
+            Icon = "trash",
+            Callback = function() 
+                print("Clicked 'Delete file'")
+            end
+        },
+    }
+})
+    
+```
+
+### Set Title
+    ```luau
+    Dropdown:SetTitle("Title Example")
+    ```
+
+### Set Description
+    ```luau
+    Dropdown:SetDesc("Description Example")
+    ```
+    
+### Select value
+    - For default Dropdown
+        ```luau
+        Dropdown:Select("Category B")
+        ```
+    - For Multi Dropdown
+        ```luau
+        Dropdown:Select({"Category B", "Category C"})
+        ```
+
+### Refresh Values (Update)
+    ```luau
+    Dropdown:Refresh({ "New Category A", "New Category B" })
+    ```
+    
+### Lock Element
+    ```luau
+    Dropdown:Lock()
+    ```
+
+### Unlock Element
+    ```luau
+    Dropdown:Unlock()
+    ```
+
+### Destroy Element
+    ```luau
+    Dropdown:Destroy()
+    ```
+
+<hr/>
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+<Accordion type="single"  collapsible>
+    <AccordionItem value="item-1">
+        <AccordionTrigger>API</AccordionTrigger>
+        <AccordionContent>
+            ## Dropdown Options
+            
+            <TypeTable
+              type={{
+                Title:            { type: 'string',                        required: true,  description: 'Title of the Dropdown.',            default: "Dropdown" },
+                Desc:             { type: 'string',                        required: false, description: 'Description of the Dropdown.',      default: "nil" },
+                Value:            { type: 'string or table (for multi)',   required: true,  description: 'Value of the Dropdown',             default: "nil" },
+                Values:           { type: 'table',                         required: true,  description: "Values to select in the Dropdown",  default: "{}" },
+                AllowNone:        { type: 'boolean',                       required: false, description: 'Allow None selected',               default: "false" },
+                SearchBarEnabled: { type: 'boolean',                       required: false, description: 'Enable Search',                     default: "false" },
+                Multi:            { type: 'boolean',                       required: false, description: 'Select multiple values',            default: "false" },
+                Locked:           { type: 'boolean',                       required: false, description: 'Locks the Element',                 default: "false" },
+                Callback:         { type: 'function',                      required: false, description: 'Callback of the Dropdown',          default: "nil" },
+              }}
+            />
+            
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>
+

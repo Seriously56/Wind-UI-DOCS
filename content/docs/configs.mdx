@@ -1,0 +1,116 @@
+---
+title: Configs
+description: Creating Configs. Saving and Loading it
+icon: FileCog
+---
+
+import { File, Folder, Files } from 'fumadocs-ui/components/files';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+
+<Steps>
+
+<Step>
+### Load ConfigManager
+```luau
+local ConfigManager = Window.ConfigManager
+```
+</Step>
+
+
+<Step>
+### Create Config File
+```luau
+local myConfig = ConfigManager:CreateConfig("myConfigExample")
+```
+</Step>
+
+
+<Step>
+### Register elements
+```luau
+myConfig:Register("SpecialNameExample", Element)
+```
+
+#### Example Register
+```luau tab="Flags (easy)"
+local ToggleElement = Tab:Toggle({
+    Title = "Toggle",
+    Desc = "Config Test Toggle",
+    Flag = "ToggleElement"
+    Callback = function(v) print("Toggle Changed: " .. tostring(v)) end
+})
+
+```
+```luau tab="Function"
+local ToggleElement = Tabs.ConfigTab:Toggle({
+    Title = "Toggle",
+    Desc = "Config Test Toggle",
+    Callback = function(v) print("Toggle Changed: " .. tostring(v)) end
+})
+
+-- register
+--                 | Element name (no spaces)    | Element          |
+myConfig:Register( "toggleNameExample",          ToggleElement      )
+```
+</Step>
+
+
+<Step>
+### Save & Load configs
+
+The config will be saved in
+<Files>
+    <Folder name="{yourExecutor}" defaultOpen>
+        <Folder name="Workspace" defaultOpen>
+            <Folder name="WindUI" defaultOpen>
+                <Folder name="{yourFolderName: Window.Folder}" defaultOpen>
+                    <Folder name="config" defaultOpen>
+                        <File name="myConfigExample.json" />
+                    </Folder>
+                </Folder>
+            </Folder>
+        </Folder>
+    </Folder>
+</Files>
+
+### Save
+```luau
+myConfig:Save()
+```
+
+### Load
+```luau
+myConfig:Load()
+```
+
+### Delete
+```luau
+myConfig:Delete()
+```
+
+### Get All Config Files
+```luau
+ConfigManager:AllConfigs() -- returns a table
+```
+
+</Step>
+
+</Steps>
+
+### Example script
+```luau
+local ConfigManager = Window.ConfigManager
+local myConfig = ConfigManager:CreateConfig("config1") -- will be saved as config1.json
+
+Tab:Toggle({
+    Title = "Toggle Example",
+    Flag = "ToggleElement",
+    Callback = function(v)
+        print("Toggle: " .. v)
+    end
+})
+
+myConfig:Save()
+myConfig:Load()
+```
